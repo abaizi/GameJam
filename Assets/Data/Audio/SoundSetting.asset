@@ -17,18 +17,19 @@ MonoBehaviour:
   SFXVolumeArg: SFXVolume
   VoiceVolumeArg: VoiceVolume
   UIVolumeArg: UIVolume
-  Master:
-    normalVolume: 1
-    isEnable: 1
-  BGM:
-    normalVolume: 1
-    isEnable: 1
-  SFX:
-    normalVolume: 1
-    isEnable: 1
-  Voice:
-    normalVolume: 1
-    isEnable: 1
-  UI:
-    normalVolume: 1
-    isEnable: 1
+  track:
+    Master:
+      normalVolume: 1
+      isEnable: 1
+    BGM:
+      normalVolume: 2
+      isEnable: 1
+    SFX:
+      normalVolume: 1
+      isEnable: 1
+    Voice:
+      normalVolume: 1
+      isEnable: 1
+    UI:
+      normalVolume: 1
+      isEnable: 1

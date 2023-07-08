@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovePlatform : Ground
+public class MoveGround : Ground
 {
     [SerializeField] protected Transform _endPt;
     [SerializeField] protected float _moveSpeed;

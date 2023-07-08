@@ -51,8 +51,7 @@ public class PlayerCtrl : MonoBehaviour
 
 
     public void MoveX(){
-        if(InputMgr.Inst.MoveInput.x > 0) _spriteRenderer.flipX = false;
-        else if(InputMgr.Inst.MoveInput.x < 0) _spriteRenderer.flipX = true;
+        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
 
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? _acceleration : _decceleration;

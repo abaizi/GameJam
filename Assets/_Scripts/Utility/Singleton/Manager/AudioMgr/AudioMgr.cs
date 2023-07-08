@@ -36,6 +36,7 @@ public class AudioMgr : PersistentSingleton<AudioMgr>, IEventListener<PlayAudioE
     }
 
     private void Init(){
+        Debug.Log(PoolMgr.Inst);
         pool = PoolMgr.Inst.CreateManaulPool(Path, PoolSize);
         tweenType = new TweenType(Tween.TweenCurve.EaseInOutCubic);
         TrackFactory.Bulid(audioSetting);

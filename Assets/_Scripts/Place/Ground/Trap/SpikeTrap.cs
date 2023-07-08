@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeTrap : MovePlatform
+public class SpikeTrap : MoveGround
 {
     [SerializeField] private float _IdleDuration;
 

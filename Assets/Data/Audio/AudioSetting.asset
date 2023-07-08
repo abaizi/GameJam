@@ -19,4 +19,4 @@ MonoBehaviour:
   voiceGroup: {fileID: 6469317408605185138, guid: 61b9422e151a56c4093ad524344c1bca, type: 2}
   uiGroup: {fileID: -246016754139393187, guid: 61b9422e151a56c4093ad524344c1bca, type: 2}
   soundSetting: {fileID: 11400000, guid: 7877a87cdd610954099b84bffcc394c4, type: 2}
-  isAutoLoad: 1
+  isAutoLoad: 0

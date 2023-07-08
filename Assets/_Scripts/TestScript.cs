@@ -41,9 +41,19 @@ public class TestScript : MonoBehaviour
     [InspectButton("LoadScene")]
     public bool b12;
 
+    [InspectButton("LoadPlayer")]
+    public bool b13;
+
+    public void LoadPlayer(){
+        var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
+        playerPt.position = data.position;
+    } 
+
+
     public float volume;
     public AudioClip bgmClip;
     public AudioClip sfxClip;
+    public Transform playerPt;
 
 
 

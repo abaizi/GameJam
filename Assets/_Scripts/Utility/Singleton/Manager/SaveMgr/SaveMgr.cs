@@ -8,12 +8,12 @@ public static class SaveMgr
     public static string Suffix = ".dat";
 
 
-    public static void Save<T>(ISaveData data, string fileName) where T : ISave{
+    public static void Save<T>(SaveData data, string fileName) where T : ISave{
         SaveFactor.Create<T>().Save(data, fileName + Suffix);
     }
 
 
-    public static U Load<T, U>(string fileName) where T : ISave where U : ISaveData{
+    public static U Load<T, U>(string fileName) where T : ISave where U : SaveData{
         return SaveFactor.Create<T>().Load<U>(fileName + Suffix);
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 [CreateAssetMenu(menuName = "Audio/SoundSetting", fileName = "SoundSetting")]
-public class SoundSetting : ScriptableObject, ISaveData
+public class SoundSetting : ScriptableObject
 {
     [Header("Arg")]
     public string MasterVolumeArg = "MasterVolume";
@@ -14,11 +14,7 @@ public class SoundSetting : ScriptableObject, ISaveData
     public string UIVolumeArg = "UIVolume";
 
     [Header("Track")]
-    public MasterTrack Master;
-    public BGMTrack BGM;
-    public SFXTrack SFX;
-    public VoiceTrack Voice;
-    public UITrack UI;
+    public TrackSaveData track;
 
 
     public const float MinVolume = 0.0001f;
@@ -26,10 +22,20 @@ public class SoundSetting : ScriptableObject, ISaveData
     public const float DefaultVolume = 1f;
 
     public void UpdateAllTrack(){
-        Master.UpdateTrackVolume();
-        BGM.UpdateTrackVolume();
-        SFX.UpdateTrackVolume();
-        Voice.UpdateTrackVolume();
-        UI.UpdateTrackVolume();
+        track.Master.UpdateTrackVolume();
+        track.BGM.UpdateTrackVolume();
+        track.SFX.UpdateTrackVolume();
+        track.Voice.UpdateTrackVolume();
+        track.UI.UpdateTrackVolume();
     }
+}
+
+[System.Serializable]
+public class TrackSaveData : SaveData
+{
+    public MasterTrack Master;
+    public BGMTrack BGM;
+    public SFXTrack SFX;
+    public VoiceTrack Voice;
+    public UITrack UI;
 }

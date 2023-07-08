@@ -23,7 +23,7 @@ public class SaveBinaryEncrypt : SaveEncrypt, ISave
         Debug.Log($"已保存至路径: {path}");
     }
 
-    public T Load<T>(string fileName) where T : ISaveData{
+    public T Load<T>(string fileName) where T : SaveData{
         string path = $"{Application.persistentDataPath}/{fileName}";
         if(!File.Exists(path)){
             Debug.Log($"路径不存在: {path}");

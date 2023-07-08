@@ -33,11 +33,11 @@ public class AudioSetting : ScriptableObject
 
 
     public void SaveSoundSetting(){
-        SaveMgr.Save<SaveJson>(soundSetting, SaveFileName);
+        SaveMgr.Save<SaveJson>(soundSetting.track, SaveFileName);
     }
 
     public void LoadSoundSetting(){
-        SaveMgr.Load<SaveJson>(SaveFileName, soundSetting);
+        SaveMgr.Load<SaveJson>(SaveFileName, soundSetting.track);
         soundSetting.UpdateAllTrack();
     }
 }
