@@ -75,7 +75,7 @@ public static class EventMgr
     public static void Invoke<T>(T e) where T : struct{
         Type type = e.GetType();
         if(listenerDict.ContainsKey(type)){
-            Debug.Log(type.Name);
+            // Debug.Log(type.Name);
             foreach(var listener in listenerDict[type]){
                 (listener as IEventListener<T>).Invoke(e);
             }

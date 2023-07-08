@@ -14,6 +14,8 @@ public class InputMgr : Singleton<InputMgr>, PlayerInputAction.IPlayerActions, P
     public bool IsDash => _inputAction.Player.Dash.WasPressedThisFrame();
     public bool IsJumpOver {get; private set;}
     public bool IsJump => _inputAction.Player.Jump.WasPressedThisFrame();
+    public bool IsAim {get; private set;}
+    public bool IsAimOver => _inputAction.Player.Aim.WasReleasedThisFrame();
 
 
     protected override void Awake(){
@@ -54,33 +56,31 @@ public class InputMgr : Singleton<InputMgr>, PlayerInputAction.IPlayerActions, P
     }
 
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
+    public void OnMove(InputAction.CallbackContext context){
         IsMove = context.performed;
         MoveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputAction.CallbackContext context)
-    {
+    public void OnJump(InputAction.CallbackContext context){
         IsJumpOver = !context.performed;
         if(context.phase == InputActionPhase.Canceled){
             _buffer.IsJumpBuffer = false;
         }
     }
 
-    public void OnDash(InputAction.CallbackContext context)
-    {
+    public void OnDash(InputAction.CallbackContext context){
 
     }
 
-    public void OnHanger(InputAction.CallbackContext context)
-    {
-
-    }
 
     public void OnEsc(InputAction.CallbackContext context){
         if(context.phase == InputActionPhase.Started){
             UIMgr.Inst.GetUIBase<PausePanel>().Use();
         }
+    }
+
+
+    public void OnAim(InputAction.CallbackContext context){
+        IsAim = context.performed;
     }
 }

@@ -31,7 +31,7 @@ public class PlayerState_Dash : PlayerState
         if(StateDuration > dashDuration){
             if(_data.check.IsGround) ToIdle();
             else ToFall();
-        }
+        }else if(_data.ctrl.CanAim) ToAim();
     }
 
     public override void Physics(){

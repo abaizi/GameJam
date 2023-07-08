@@ -8,9 +8,7 @@ public class Sphere : MonoBehaviour
     [SerializeField] private float _fixedForce;
     [SerializeField] private float _impact;
 
-    private void Start(){
 
-    }
     private Rigidbody2D _rb;
     private Vector2 _fixedDir;
 

@@ -34,5 +34,7 @@ public class PlayerState : StateBase
     protected void ToFall() => _data.fsm.Switch(typeof(PlayerState_Fall));
     protected void ToJump() => _data.fsm.Switch(typeof(PlayerState_Jump));
     protected void ToLand() => _data.fsm.Switch(typeof(PlayerState_Land));
+    protected void ToAim() => _data.fsm.Switch(typeof(PlayerState_Aim));
+    protected void ToShoot() => _data.fsm.Switch(typeof(PlayerState_Shoot));
 
 }

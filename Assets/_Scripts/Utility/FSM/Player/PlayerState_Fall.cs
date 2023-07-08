@@ -30,6 +30,7 @@ public class PlayerState_Fall : PlayerState
             else InputMgr.Inst.EnableJumpBuffer();
         }else if(_data.check.IsGround) ToLand();
         else if(_data.ctrl.CanDash) ToDash();
+        else if(_data.ctrl.CanAim) ToAim();
 
         HangInAir();
     }

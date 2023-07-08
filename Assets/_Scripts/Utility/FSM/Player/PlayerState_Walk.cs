@@ -18,6 +18,7 @@ public class PlayerState_Walk : PlayerState
         else if(InputMgr.Inst.IsJump && _data.check.IsGround) ToJump();
         else if(!_data.check.IsGround) ToCoyote();
         else if(_data.ctrl.CanDash) ToDash();
+        else if(_data.ctrl.CanAim) ToAim();
     }
 
     public override void Physics(){

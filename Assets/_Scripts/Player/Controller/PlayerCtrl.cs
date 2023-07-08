@@ -16,6 +16,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private float _fallGravityMul;
 
 
+    private Sphere _sphere;
     private Rigidbody2D _rb;
     private Collider2D _collider;
     private GroundCheck _check;
@@ -26,17 +27,24 @@ public class PlayerCtrl : MonoBehaviour
     public float LastJumpMul => _lastJumpMul;
     public float LastMoveMul => _lastMoveMul;
 
+    public float Dir => transform.localScale.x;
+
     public float JumpMul {get; set;} = 1;
     public float MoveMul {get; set;} = 1;
 
 
     public bool IsFall => !_check.IsGround && _rb.velocity.y < 0;
+
     public bool HasDoubleJump {get; set;} = true;
     public bool CanJump {get; set;} = true;
+
     public bool HasDash {get; set;} = true;
     public bool DashCDOver {get; private set;} = true;
     public bool CanDash => HasDash && InputMgr.Inst.IsDash && DashCDOver;
-    public float Dir => -transform.localScale.x;
+
+    public bool HasAim {get; set;} = false;
+    public bool CanAim => HasAim && InputMgr.Inst.IsAim;
+    public Vector2 AimDir {get; set;}
 
 
     private void Awake(){
@@ -47,9 +55,9 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Start(){
         InputMgr.Inst.EnablePlayerInput();
-        
-        var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
-        transform.position = data.position;
+
+        // var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
+        // transform.position = data.position;
     }
 
 
@@ -61,8 +69,7 @@ public class PlayerCtrl : MonoBehaviour
 
 
     public void MoveX(){
-        
-        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
+        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? _acceleration : _decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
@@ -70,7 +77,7 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     public void MoveX(float speedMul = 1, float acceMul = 1){
-        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
+        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul * speedMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? _acceleration * acceMul : _decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
@@ -93,6 +100,10 @@ public class PlayerCtrl : MonoBehaviour
         MoveMul = _lastMoveMul;
         JumpMul = _lastJumpMul;
         SetGravity();
+    }
+
+    public void AddShootForce(float forceMul){
+        _rb.AddForce(-AimDir * forceMul, ForceMode2D.Impulse);
     }
 
 

@@ -15,7 +15,7 @@ public class PlayerFSM : FSMBase
     }
 
     protected override void Init(){
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _ctrl = GetComponentInChildren<PlayerCtrl>();
         _check = GetComponentInChildren<GroundCheck>();
 

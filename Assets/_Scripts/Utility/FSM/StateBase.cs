@@ -26,7 +26,7 @@ public class StateBase : ScriptableObject, IState
     
     public virtual void Enter(){
         _startTime = Time.time;
-        //_stateData.animator.Play(_animHash);
+        _stateData.animator.Play(_animHash);
     }
 
     public virtual void Exit(){
