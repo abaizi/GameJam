@@ -83,8 +83,6 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     public void ResetMul(){
-        Debug.Log(_lastMoveMul);
-        
         MoveMul = _lastMoveMul;
         JumpMul = _lastJumpMul;
         SetGravity();
