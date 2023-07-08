@@ -51,8 +51,8 @@ public class PlayerCtrl : MonoBehaviour
 
 
     public void MoveX(){
+        
         if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
-
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? _acceleration : _decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
@@ -60,7 +60,7 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     public void MoveX(float speedMul = 1, float acceMul = 1){
-        if(InputMgr.Inst.IsMove) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
+        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul * speedMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? _acceleration * acceMul : _decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
