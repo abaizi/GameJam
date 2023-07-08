@@ -11,7 +11,6 @@ public class FSMBase : MonoBehaviour, IState
     protected StateData _data;
 
     public IState CurState => _curState;
-    public StateData Data => _data;
 
 
 #region LifeCycle

@@ -5,24 +5,34 @@ using UnityEngine;
 public class PlayerCtrl : MonoBehaviour
 {
     [Header("Move")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float decceleration;
-    [SerializeField] private float accePow;
-    [SerializeField] private float friction;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _acceleration;
+    [SerializeField] private float _decceleration;
+    [SerializeField] private float _accePow;
+    [SerializeField] private float _friction;
 
     [Space(10)] [Header("Jump")] 
-    [SerializeField] private float gravityScale;
-    [SerializeField] private float fallGravityMul;
-
+    [SerializeField] private float _gravityScale;
+    [SerializeField] private float _fallGravityMul;
 
 
     private Rigidbody2D _rb;
-    private PlayerCheck _check;
+    private GroundCheck _check;
+
+    private float _lastJumpMul = 1;
+    private float _lastMoveMul = 1;
+
+    public float LastJumpMul => _lastJumpMul;
+    public float LastMoveMul => _lastMoveMul;
+
+    public float JumpMul {get; set;} = 1;
+    public float MoveMul {get; set;} = 1;
+
 
     public bool IsFall => !_check.IsGround && _rb.velocity.y < 0;
-    public bool HasDoubleJump {get; set;}
-    public bool HasDash {get; set;}
+    public bool HasDoubleJump {get; set;} = true;
+    public bool CanJump {get; set;} = true;
+    public bool HasDash {get; set;} = true;
     public bool DashCDOver {get; private set;} = true;
     public bool CanDash => HasDash && InputMgr.Inst.IsDash && DashCDOver;
     public float Dir => -transform.localScale.x;
@@ -30,7 +40,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Awake(){
         _rb = GetComponent<Rigidbody2D>();
-        _check = GetComponent<PlayerCheck>();
+        _check = GetComponent<GroundCheck>();
     }
 
     private void Start(){
@@ -40,40 +50,62 @@ public class PlayerCtrl : MonoBehaviour
 
     public void MoveX(){
         if(InputMgr.Inst.IsMove) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
-        float speedDif = InputMgr.Inst.MoveInput.x * moveSpeed - _rb.velocity.x;
-        float acceValue = InputMgr.Inst.IsMove ? acceleration : decceleration;
-        float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, accePow) * Mathf.Sign(speedDif);
+        float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul - _rb.velocity.x;
+        float acceValue = InputMgr.Inst.IsMove ? _acceleration : _decceleration;
+        float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
         _rb.AddForce(Vector2.right * force);
     }
 
     public void MoveX(float speedMul = 1, float acceMul = 1){
         if(InputMgr.Inst.IsMove) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
-        float speedDif = InputMgr.Inst.MoveInput.x * moveSpeed * speedMul - _rb.velocity.x;
-        float acceValue = InputMgr.Inst.IsMove ? acceleration * acceMul : decceleration;
-        float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, accePow) * Mathf.Sign(speedDif);
+        float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul * speedMul - _rb.velocity.x;
+        float acceValue = InputMgr.Inst.IsMove ? _acceleration * acceMul : _decceleration;
+        float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
         _rb.AddForce(Vector2.right * force);
     }
 
+    
+    public void DisableMove(){
+        RecordMul();
+        SetVelocityX(0);
+        SetVelocityY(0);
+        SetGravity(0);
+        MoveMul = 0;
+        JumpMul = 0;
+    }
+
+    public void RecordMul(){
+        _lastMoveMul = MoveMul;
+        _lastJumpMul = JumpMul;
+    }
+
+    public void ResetMul(){
+        MoveMul = _lastMoveMul;
+        JumpMul = _lastJumpMul;
+        SetGravity();
+    }
+
+
     public void AddFriction(){
-        float fric = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(friction)) * Mathf.Sign(_rb.velocity.x);
+        float fric = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(_friction)) * Mathf.Sign(_rb.velocity.x);
         _rb.AddForce(Vector2.right * -fric, ForceMode2D.Impulse);
     }
 
     public void Jump(float jumpForce){
-        SetSpeedY(0);
-        _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        SetVelocityY(0);
+        _rb.AddForce(Vector2.up * jumpForce * JumpMul, ForceMode2D.Impulse);
     }
 
-    public void SetSpeedY(float velocity){
+    public void SetVelocityY(float velocity){
         _rb.velocity = new Vector2(_rb.velocity.x, velocity);
     }
 
     public void SetGravity(float mul = 1){
-        _rb.gravityScale = gravityScale * mul;
+        _rb.gravityScale = _gravityScale * mul;
     }
 
     public void SetFallGravity(){
-        _rb.gravityScale = gravityScale * fallGravityMul;
+        _rb.gravityScale = _gravityScale * _fallGravityMul;
     }
 
     public void SetVelocityX(float velocity){
@@ -89,5 +121,9 @@ public class PlayerCtrl : MonoBehaviour
         DashCDOver = false;
         yield return Timer.WaitForTime(duration);
         DashCDOver = true;
+    }
+
+    public void Die(){
+        Debug.Log("Die");
     }
 }
