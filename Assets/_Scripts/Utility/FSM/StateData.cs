@@ -16,9 +16,9 @@ public class StateData
 public class PlayerStateData : StateData
 {
     public PlayerCtrl ctrl;
-    public PlayerCheck check;
+    public GroundCheck check;
 
-    public PlayerStateData(FSMBase fsm, Animator animator, PlayerCtrl ctrl, PlayerCheck check) : base(fsm, animator){
+    public PlayerStateData(FSMBase fsm, Animator animator, PlayerCtrl ctrl, GroundCheck check) : base(fsm, animator){
         this.ctrl = ctrl;
         this.check = check;
     }

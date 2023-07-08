@@ -36,6 +36,10 @@ public class InputMgr : Singleton<InputMgr>, PlayerInputAction.IPlayerActions, P
         _inputAction.UI.Enable();
     }
 
+    public void EnableJumpInput(){
+        _inputAction.Player.Jump.Enable();
+    }
+
     public void DisablePlayerInput(){
         _inputAction.Player.Disable();
     }
