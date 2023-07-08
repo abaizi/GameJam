@@ -10,6 +10,7 @@ public class AccelGround : Ground
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
         
+        _ctrl.RecordMul();
         _ctrl.MoveMul = _moveMul;
     }
 

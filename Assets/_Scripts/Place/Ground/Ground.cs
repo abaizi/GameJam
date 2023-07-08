@@ -7,8 +7,6 @@ public class Ground : Place
 {
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
-
-        _ctrl.RecordMul();
     }
 
     protected override void OnPlayerStay(Collision2D other){

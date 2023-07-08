@@ -13,6 +13,7 @@ public class StoneTrap : Ground
 
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
+        
         Destroy(gameObject, _IdleDuration);
     }
 

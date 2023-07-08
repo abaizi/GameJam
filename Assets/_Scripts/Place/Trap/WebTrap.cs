@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WebTrap : Trap
+public class WebTrap : Ground
 {
     [SerializeField] private float _jumpCount = 2;
 
@@ -11,6 +11,7 @@ public class WebTrap : Trap
 
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
+        
         StartCoroutine(nameof(CheckCoroutine));
     }
 
@@ -25,7 +26,7 @@ public class WebTrap : Trap
     private IEnumerator CheckCoroutine(){
         _curJumpCount = 0;
         _data.fsm.Switch(typeof(PlayerState_DisableMove));
-        
+
         while(true){
             Debug.Log(_curJumpCount);
             if(InputMgr.Inst.IsJump){

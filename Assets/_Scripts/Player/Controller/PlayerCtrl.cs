@@ -18,6 +18,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private Rigidbody2D _rb;
     private GroundCheck _check;
+    private SpriteRenderer _spriteRenderer;
 
     private float _lastJumpMul = 1;
     private float _lastMoveMul = 1;
@@ -41,6 +42,7 @@ public class PlayerCtrl : MonoBehaviour
     private void Awake(){
         _rb = GetComponent<Rigidbody2D>();
         _check = GetComponent<GroundCheck>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start(){
@@ -49,7 +51,9 @@ public class PlayerCtrl : MonoBehaviour
 
 
     public void MoveX(){
-        if(InputMgr.Inst.IsMove) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
+        if(InputMgr.Inst.MoveInput.x > 0) _spriteRenderer.flipX = false;
+        else if(InputMgr.Inst.MoveInput.x < 0) _spriteRenderer.flipX = true;
+
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? _acceleration : _decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
@@ -80,6 +84,8 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     public void ResetMul(){
+        Debug.Log(_lastMoveMul);
+        
         MoveMul = _lastMoveMul;
         JumpMul = _lastJumpMul;
         SetGravity();
