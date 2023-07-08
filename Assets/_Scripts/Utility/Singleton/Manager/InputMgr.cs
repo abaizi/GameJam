@@ -11,7 +11,7 @@ public class InputMgr : Singleton<InputMgr>, PlayerInputAction.IPlayerActions, P
 
     public Vector2 MoveInput {get; private set;}
     public bool IsMove {get; private set;}
-    public bool IsDash => _inputAction.Player.Jump.WasPressedThisFrame();
+    public bool IsDash => _inputAction.Player.Dash.WasPressedThisFrame();
     public bool IsJumpOver {get; private set;}
     public bool IsJump => _inputAction.Player.Jump.WasPressedThisFrame();
 

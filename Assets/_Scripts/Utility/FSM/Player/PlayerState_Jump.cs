@@ -27,6 +27,7 @@ public class PlayerState_Jump : PlayerState
 
         if(_data.ctrl.IsFall) ToFall();
         else if(InputMgr.Inst.IsJump) ToDoubleJump();
+        else if(_data.ctrl.CanDash) ToDash();
     }
 
     public override void Physics(){

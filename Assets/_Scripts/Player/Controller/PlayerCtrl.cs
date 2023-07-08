@@ -23,6 +23,9 @@ public class PlayerCtrl : MonoBehaviour
     public bool IsFall => !_check.IsGround && _rb.velocity.y < 0;
     public bool HasDoubleJump {get; set;}
     public bool HasDash {get; set;}
+    public bool DashCDOver {get; private set;} = true;
+    public bool CanDash => HasDash && InputMgr.Inst.IsDash && DashCDOver;
+    public float Dir => -transform.localScale.x;
 
 
     private void Awake(){
@@ -36,6 +39,7 @@ public class PlayerCtrl : MonoBehaviour
 
 
     public void MoveX(){
+        if(InputMgr.Inst.IsMove) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
         float speedDif = InputMgr.Inst.MoveInput.x * moveSpeed - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? acceleration : decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, accePow) * Mathf.Sign(speedDif);
@@ -43,6 +47,7 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     public void MoveX(float speedMul = 1, float acceMul = 1){
+        if(InputMgr.Inst.IsMove) transform.localScale = new Vector3(-InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
         float speedDif = InputMgr.Inst.MoveInput.x * moveSpeed * speedMul - _rb.velocity.x;
         float acceValue = InputMgr.Inst.IsMove ? acceleration * acceMul : decceleration;
         float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, accePow) * Mathf.Sign(speedDif);
@@ -69,5 +74,20 @@ public class PlayerCtrl : MonoBehaviour
 
     public void SetFallGravity(){
         _rb.gravityScale = gravityScale * fallGravityMul;
+    }
+
+    public void SetVelocityX(float velocity){
+        _rb.velocity = Vector2.right * velocity;
+    }
+
+    public void StartDashTimer(float duration){
+        StopCoroutine(DashTimer(duration));
+        StartCoroutine(DashTimer(duration));
+    }
+
+    private IEnumerator DashTimer(float duration){
+        DashCDOver = false;
+        yield return Timer.WaitForTime(duration);
+        DashCDOver = true;
     }
 }

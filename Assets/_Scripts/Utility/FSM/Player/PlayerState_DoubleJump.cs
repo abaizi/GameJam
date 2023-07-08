@@ -26,6 +26,7 @@ public class PlayerState_DoubleJump : PlayerState
         if(InputMgr.Inst.IsJumpOver && StateDuration > jumpTime) _data.ctrl.SetGravity(fallGravityMul);
 
         if(_data.ctrl.IsFall) ToFall();
+        else if(_data.ctrl.CanDash) ToDash();
     }
 
     public override void Physics(){
