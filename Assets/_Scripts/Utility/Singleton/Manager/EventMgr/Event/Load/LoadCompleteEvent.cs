@@ -8,7 +8,9 @@ public struct LoadCompleteEvent{
     private static LoadCompleteEvent e;
 
     public static void Invoke(string sceneName){
+        
         e.SceneName = sceneName;
         EventMgr.Invoke<LoadCompleteEvent>(e);
+        Debug.Log(2);
     }
 }

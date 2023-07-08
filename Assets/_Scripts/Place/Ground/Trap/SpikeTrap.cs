@@ -40,7 +40,7 @@ public class SpikeTrap : MoveGround
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
 
-        _ctrl.Die();
+        _data.fsm.Switch(typeof(PlayerState_Die));
     }
 
     private IEnumerator IdleTimer(){

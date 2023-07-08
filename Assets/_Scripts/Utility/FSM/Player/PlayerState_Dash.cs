@@ -28,7 +28,10 @@ public class PlayerState_Dash : PlayerState
     }
 
     public override void Logic(){
-        if(StateDuration > dashDuration) ToIdle();
+        if(StateDuration > dashDuration){
+            if(_data.check.IsGround) ToIdle();
+            else ToFall();
+        }
     }
 
     public override void Physics(){

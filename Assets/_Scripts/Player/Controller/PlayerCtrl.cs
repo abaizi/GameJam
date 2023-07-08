@@ -17,8 +17,8 @@ public class PlayerCtrl : MonoBehaviour
 
 
     private Rigidbody2D _rb;
+    private Collider2D _collider;
     private GroundCheck _check;
-    private SpriteRenderer _spriteRenderer;
 
     private float _lastJumpMul = 1;
     private float _lastMoveMul = 1;
@@ -42,11 +42,21 @@ public class PlayerCtrl : MonoBehaviour
     private void Awake(){
         _rb = GetComponent<Rigidbody2D>();
         _check = GetComponent<GroundCheck>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<Collider2D>();
     }
 
     private void Start(){
         InputMgr.Inst.EnablePlayerInput();
+        
+        var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
+        transform.position = data.position;
+    }
+
+
+    [InspectButton("Test")]
+    public bool b;
+    private void Test(){
+        EventMgr.Test();
     }
 
 
@@ -69,12 +79,9 @@ public class PlayerCtrl : MonoBehaviour
 
     
     public void DisableMove(){
-        RecordMul();
         SetVelocityX(0);
         SetVelocityY(0);
         SetGravity(0);
-        MoveMul = 0;
-        JumpMul = 0;
     }
 
     public void RecordMul(){
@@ -127,6 +134,12 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     public void Die(){
-        Debug.Log("Die");
+        DisableMove();
+
+        _collider.enabled = false;
+    }
+
+    public void Revive(){
+        _collider.enabled = true;
     }
 }

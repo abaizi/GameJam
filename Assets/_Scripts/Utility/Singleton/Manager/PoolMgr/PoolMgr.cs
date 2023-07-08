@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolMgr : PersistentSingleton<PoolMgr>
+public class PoolMgr : Singleton<PoolMgr>
 {
     private Dictionary<string, Pool> poolDict = new Dictionary<string, Pool>();
 

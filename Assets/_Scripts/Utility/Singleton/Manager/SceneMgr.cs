@@ -106,8 +106,8 @@ public class SceneMgr : MonoBehaviour
         FadeOutEvent.Invoke(fadeOutDuration, tweenType);
         yield return waitForFadeOut;
 
-        asyncOperation.allowSceneActivation = true;
         LoadCompleteEvent.Invoke(sceneName);
+        asyncOperation.allowSceneActivation = true;
     }
 }
 

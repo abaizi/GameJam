@@ -5,25 +5,27 @@ using UnityEngine;
 public class Sphere : MonoBehaviour
 {
     [SerializeField] private Transform _dirPt;
-    [SerializeField] private float _force;
+    [SerializeField] private float _fixedForce;
+    [SerializeField] private float _impact;
 
     private void Start(){
 
     }
     private Rigidbody2D _rb;
-    private Vector2 _moveDir;
+    private Vector2 _fixedDir;
 
 
     private void Awake(){
         _rb = GetComponent<Rigidbody2D>();
 
-        _moveDir = (_dirPt.position - transform.position).normalized;
+        _fixedDir = (_dirPt.position - transform.position).normalized;
     }
 
     private void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.CompareTag("Player")){
             _rb.velocity = Vector2.zero;
-            _rb.AddForce(_moveDir * _force);
+            Vector2 dir = (transform.position - other.transform.position).normalized;
+            _rb.AddForce(dir * _impact + _fixedDir * _fixedForce);
         }
     }
 

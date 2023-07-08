@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerFSM : FSMBase
 {
-    private Animator _animator;
-    private PlayerCtrl _ctrl;
-    private GroundCheck _check;
+    protected Animator _animator;
+    protected PlayerCtrl _ctrl;
+    protected GroundCheck _check;
 
     public PlayerStateData Data => _data as PlayerStateData;
 

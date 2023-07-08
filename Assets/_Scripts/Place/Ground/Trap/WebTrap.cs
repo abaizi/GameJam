@@ -28,7 +28,6 @@ public class WebTrap : Ground
         _data.fsm.Switch(typeof(PlayerState_DisableMove));
 
         while(true){
-            Debug.Log(_curJumpCount);
             if(InputMgr.Inst.IsJump){
                 if(++_curJumpCount >= _jumpCount){
                     _data.fsm.Switch(typeof(PlayerState_Jump));
