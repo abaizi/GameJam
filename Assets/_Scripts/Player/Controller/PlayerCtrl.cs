@@ -46,6 +46,8 @@ public class PlayerCtrl : MonoBehaviour
     public bool CanAim => HasAim && InputMgr.Inst.IsAim;
     public Vector2 AimDir {get; set;}
 
+    public bool IsWater {get; set;}
+
 
     private void Awake(){
         _rb = GetComponent<Rigidbody2D>();
@@ -84,7 +86,7 @@ public class PlayerCtrl : MonoBehaviour
         _rb.AddForce(Vector2.right * force);
     }
 
-    
+
     public void DisableMove(){
         SetVelocityX(0);
         SetVelocityY(0);

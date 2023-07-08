@@ -33,6 +33,23 @@ public class Place : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("Player")){
+            OnPlayerTriggerEnter(other);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other){
+        if(other.gameObject.CompareTag("Player")){
+            OnPlayerTriggerStay(other);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.gameObject.CompareTag("Player")){
+            OnPlayerTriggerExit(other);
+        }
+    }
 
     protected virtual void OnPlayerEnter(Collision2D other){
         _data = other.gameObject.GetComponentInParent<PlayerFSM>().Data;
@@ -44,6 +61,20 @@ public class Place : MonoBehaviour
     }
 
     protected virtual void OnPlayerExit(Collision2D other){
+        
+    }
+
+
+    protected virtual void OnPlayerTriggerEnter(Collider2D other){
+        _data = other.gameObject.GetComponentInParent<PlayerFSM>().Data;
+        _ctrl = _data.ctrl;
+    }
+
+    protected virtual void OnPlayerTriggerStay(Collider2D other){
+
+    }
+
+    protected virtual void OnPlayerTriggerExit(Collider2D other){
         
     }
 }
