@@ -36,7 +36,7 @@ public class PlayerState_Fall : PlayerState
     }
 
     public override void Physics(){
-        _data.ctrl.MoveX(speedMul, acceMul);
+        _data.ctrl.PlayerMoveX(speedMul, acceMul);
     }
 
 

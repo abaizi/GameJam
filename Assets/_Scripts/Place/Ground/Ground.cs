@@ -28,4 +28,16 @@ public class Ground : Place
     protected override void OnPlayerTriggerExit(Collider2D other){
         base.OnPlayerTriggerExit(other);
     }
+
+    protected override void OnSphereTriggerEnter(Collider2D other){
+        base.OnSphereTriggerEnter(other);
+    }
+
+    protected override void OnSphereTriggerStay(Collider2D other){
+        base.OnSphereTriggerStay(other);
+    }
+
+    protected override void OnSphereTriggerExit(Collider2D other){
+        base.OnSphereTriggerExit(other);
+    }
 }

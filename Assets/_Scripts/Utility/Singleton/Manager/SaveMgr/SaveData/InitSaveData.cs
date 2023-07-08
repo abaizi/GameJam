@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitSaveData : PersistentSingleton<InitSaveData>
+public class InitSaveData : MonoBehaviour
 {
-    [SerializeField] private Transform initPt;
+    [SerializeField] private Vector3 position;
 
-    protected override void Awake(){
-        base.Awake();
-
-        SaveMgr.Save<SaveJson>(new PlayerSaveData(initPt.position), PlayerSaveData.SaveFileName);
+    private void Awake(){
+        SaveMgr.Save<SaveJson>(new PlayerSaveData(position), PlayerSaveData.SaveFileName);
     }
 }

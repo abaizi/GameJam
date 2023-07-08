@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class PlayButton : LoadSceneButton, IPointerEnterHandler, IPointerExitHandler
+public class CreditsButton : ButtonBase, IPointerEnterHandler, IPointerExitHandler
 {
     private Image _mask;
     private CanvasGroup _canvasGroup;
@@ -12,7 +12,6 @@ public class PlayButton : LoadSceneButton, IPointerEnterHandler, IPointerExitHan
 
     protected override void Awake(){
         base.Awake();
-        _sceneName = SceneMgr.PlaySceneName;
 
         _canvasGroup = GetComponentInChildren<CanvasGroup>();
     }

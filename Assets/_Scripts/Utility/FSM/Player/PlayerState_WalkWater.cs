@@ -5,23 +5,25 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Player/WalkWater", fileName = "PlayerState_WalkWater")]
 public class PlayerState_WalkWater : PlayerState
 {
-    [SerializeField] private float gravityScale = 0.5f;
-
     public override void Enter(){
         base.Enter();
-        _data.ctrl.SetGravity(gravityScale);
+
+        _data.ctrl.SetGravity(0);
     }
 
     public override void Exit(){
         base.Exit();
+
         _data.ctrl.SetGravity();
     }
 
     public override void Logic(){
-        
+        if(!_data.ctrl.IsWater) ToIdle();
+        else if(!InputMgr.Inst.IsMove) ToIdleWater();
+        else if(InputMgr.Inst.IsJump) ToJumpWater();
     }
 
     public override void Physics(){
-        _data.ctrl.MoveX();
+        _data.ctrl.MoveInWater();
     }
 }

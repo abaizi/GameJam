@@ -12,9 +12,7 @@ public class CustomCamera : MonoBehaviour
     private Vector3 _cameraPos {get => Camera.main.transform.position; set => Camera.main.transform.position = value;}
 
     private void Update(){
-        _cameraPos = new Vector3(Mathf.Lerp(_followPt.position.x + _offset.x, _cameraPos.x, _damping.x),
-         Mathf.Lerp(_followPt.position.y + _offset.y, _cameraPos.y, _damping.y), _cameraPos.z);
+        _cameraPos = new Vector3(Mathf.Lerp(_followPt.position.x, _cameraPos.x+ _offset.x, _damping.x),
+         Mathf.Lerp(_followPt.position.y, _cameraPos.y + _offset.y, _damping.y), _cameraPos.z);
     }
-
-    
 }

@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Player/JumpWater", fileName = "PlayerState_JumpWater")]
 public class PlayerState_JumpWater : PlayerState
 {
-    [SerializeField] private float gravityScale = 0.5f;
+    [SerializeField] private float jumpForce = 10f;
 
     public override void Enter(){
         base.Enter();
-        
-        _data.ctrl.SetGravity(gravityScale);
+
+        _data.ctrl.SetGravity(0);
+        _data.ctrl.Jump(jumpForce);
     }
 
     public override void Exit(){
@@ -20,10 +21,10 @@ public class PlayerState_JumpWater : PlayerState
     }
 
     public override void Logic(){
-        
+        if(IsFinish) ToIdleWater();
     }
 
     public override void Physics(){
-        _data.ctrl.MoveX();
+        _data.ctrl.JumpInWater();
     }
 }

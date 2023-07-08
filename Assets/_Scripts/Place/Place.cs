@@ -9,10 +9,13 @@ public class Place : MonoBehaviour
     protected PlayerCtrl _ctrl;
     protected Collider2D _collider;
 
+    protected Rigidbody2D _rbSphere;
+
 
     protected virtual void Awake(){
         _collider = GetComponent<Collider2D>();
     }
+
 
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -33,23 +36,32 @@ public class Place : MonoBehaviour
         }
     }
 
+
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.CompareTag("Player")){
             OnPlayerTriggerEnter(other);
+        }else if(other.gameObject.CompareTag("Sphere")){
+            OnSphereTriggerEnter(other);
         }
     }
 
     private void OnTriggerStay2D(Collider2D other){
         if(other.gameObject.CompareTag("Player")){
             OnPlayerTriggerStay(other);
+        }else if(other.gameObject.CompareTag("Sphere")){
+            OnSphereTriggerStay(other);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if(other.gameObject.CompareTag("Player")){
             OnPlayerTriggerExit(other);
+        }else if(other.gameObject.CompareTag("Sphere")){
+            OnSphereTriggerExit(other);
         }
     }
+
 
     protected virtual void OnPlayerEnter(Collision2D other){
         _data = other.gameObject.GetComponentInParent<PlayerFSM>().Data;
@@ -75,6 +87,20 @@ public class Place : MonoBehaviour
     }
 
     protected virtual void OnPlayerTriggerExit(Collider2D other){
+        
+    }
+
+
+
+    protected virtual void OnSphereTriggerEnter(Collider2D other){
+        _rbSphere = other.GetComponent<Rigidbody2D>();
+    }
+
+    protected virtual void OnSphereTriggerStay(Collider2D other){
+
+    }
+
+    protected virtual void OnSphereTriggerExit(Collider2D other){
         
     }
 }

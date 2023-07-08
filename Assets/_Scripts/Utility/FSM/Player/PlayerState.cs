@@ -36,5 +36,9 @@ public class PlayerState : StateBase
     protected void ToLand() => _data.fsm.Switch(typeof(PlayerState_Land));
     protected void ToAim() => _data.fsm.Switch(typeof(PlayerState_Aim));
     protected void ToShoot() => _data.fsm.Switch(typeof(PlayerState_Shoot));
+    protected void ToIdleWater() => _data.fsm.Switch(typeof(PlayerState_IdleWater));
+    protected void ToWalkWater() => _data.fsm.Switch(typeof(PlayerState_WalkWater));
+    protected void ToJumpWater() => _data.fsm.Switch(typeof(PlayerState_JumpWater));
+
 
 }

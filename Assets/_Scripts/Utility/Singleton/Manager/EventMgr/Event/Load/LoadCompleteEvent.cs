@@ -11,6 +11,5 @@ public struct LoadCompleteEvent{
         
         e.SceneName = sceneName;
         EventMgr.Invoke<LoadCompleteEvent>(e);
-        Debug.Log(2);
     }
 }

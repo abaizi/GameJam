@@ -22,6 +22,6 @@ public class PlayerState_Walk : PlayerState
     }
 
     public override void Physics(){
-        _data.ctrl.MoveX();
+        _data.ctrl.PlayerMoveX();
     }
 }

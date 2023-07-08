@@ -23,7 +23,7 @@ public class PlayerState_Die : PlayerState
 
     public override void Logic(){
         if(StateDuration > fadeOutDuration){
-            SceneMgr.LoadScene(SceneMgr.PlaySceneName, true);
+            SceneMgr.LoadScene(SceneMgr.PlaySceneName);
         }
     }
 

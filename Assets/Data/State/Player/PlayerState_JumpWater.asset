@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerState_JumpWater
   m_EditorClassIdentifier: 
   _animName: JumpWater
-  gravityScale: 0.5
+  jumpForce: 15

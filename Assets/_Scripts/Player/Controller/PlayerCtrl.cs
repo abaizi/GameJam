@@ -15,28 +15,28 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private float _gravityScale;
     [SerializeField] private float _fallGravityMul;
 
+    [Space(10)] [Header("Water")]
+    [SerializeField] private float _waterSpeedXMul = 0.3f;
+    [SerializeField] private float _waterSpeedYMul = 0.2f;
+    [SerializeField] private float _waterFallSpeed = 1;
 
-    private Sphere _sphere;
+
     private Rigidbody2D _rb;
     private Collider2D _collider;
     private GroundCheck _check;
 
+    private float _acceValue => InputMgr.Inst.IsMove ? _acceleration : _decceleration;
+
     private float _lastJumpMul = 1;
     private float _lastMoveMul = 1;
-
-    public float LastJumpMul => _lastJumpMul;
-    public float LastMoveMul => _lastMoveMul;
-
-    public float Dir => transform.localScale.x;
 
     public float JumpMul {get; set;} = 1;
     public float MoveMul {get; set;} = 1;
 
-
+    public bool IsFallWater => Mathf.Approximately(_rb.velocity.y, 0);
     public bool IsFall => !_check.IsGround && _rb.velocity.y < 0;
 
     public bool HasDoubleJump {get; set;} = true;
-    public bool CanJump {get; set;} = true;
 
     public bool HasDash {get; set;} = true;
     public bool DashCDOver {get; private set;} = true;
@@ -48,6 +48,7 @@ public class PlayerCtrl : MonoBehaviour
 
     public bool IsWater {get; set;}
 
+    
 
     private void Awake(){
         _rb = GetComponent<Rigidbody2D>();
@@ -58,8 +59,8 @@ public class PlayerCtrl : MonoBehaviour
     private void Start(){
         InputMgr.Inst.EnablePlayerInput();
 
-        // var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
-        // transform.position = data.position;
+        var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
+        transform.position = data.position;
     }
 
 
@@ -70,20 +71,50 @@ public class PlayerCtrl : MonoBehaviour
     }
 
 
-    public void MoveX(){
+    public void PlayerMoveX(){
+        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(InputMgr.Inst.MoveInput.x * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+
+        MoveX();
+    }
+
+    public void PlayerMoveX(float speedMul = 1, float acceMul = 1){
         if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
-        float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul - _rb.velocity.x;
-        float acceValue = InputMgr.Inst.IsMove ? _acceleration : _decceleration;
-        float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
+        
+        float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul * speedMul - _rb.velocity.x;
+        float acceValue = InputMgr.Inst.IsMove ? _acceleration * acceMul : _decceleration;
+        float force = Mathf.Pow(Mathf.Abs(speedDif) * _acceValue, _accePow) * Mathf.Sign(speedDif);
         _rb.AddForce(Vector2.right * force);
     }
 
-    public void MoveX(float speedMul = 1, float acceMul = 1){
+    public void MoveInWater(){
         if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
+        
+        MoveX(_waterSpeedXMul);
+        if(InputMgr.Inst.MoveInput.y == 0){
+            SetVelocityY(-_waterFallSpeed);
+            return;
+        }
+        MoveY(_waterSpeedYMul);
+    }
+
+    public void JumpInWater(){
+        if(InputMgr.Inst.MoveInput.x != 0) transform.localScale = new Vector3(InputMgr.Inst.MoveInput.x, transform.localScale.y, transform.localScale.z);
+
+        MoveX(_waterSpeedXMul);
+        MoveY(_waterSpeedYMul);
+    }
+
+
+    private void MoveX(float speedMul = 1){
         float speedDif = InputMgr.Inst.MoveInput.x * _moveSpeed * MoveMul * speedMul - _rb.velocity.x;
-        float acceValue = InputMgr.Inst.IsMove ? _acceleration * acceMul : _decceleration;
-        float force = Mathf.Pow(Mathf.Abs(speedDif) * acceValue, _accePow) * Mathf.Sign(speedDif);
+        float force = Mathf.Pow(Mathf.Abs(speedDif) * _acceValue, _accePow) * Mathf.Sign(speedDif);
         _rb.AddForce(Vector2.right * force);
+    }
+
+    private void MoveY(float speedMul = 1){
+        float speedDif = InputMgr.Inst.MoveInput.y * _moveSpeed * MoveMul * speedMul - _rb.velocity.y;
+        float force = Mathf.Pow(Mathf.Abs(speedDif) * _acceValue, _accePow) * Mathf.Sign(speedDif);
+        _rb.AddForce(Vector2.up * force);
     }
 
 
@@ -102,6 +133,10 @@ public class PlayerCtrl : MonoBehaviour
         MoveMul = _lastMoveMul;
         JumpMul = _lastJumpMul;
         SetGravity();
+    }
+
+    public void AddForce(Vector2 force, ForceMode2D mode){
+        _rb.AddForce(force, mode);
     }
 
     public void AddShootForce(float forceMul){
