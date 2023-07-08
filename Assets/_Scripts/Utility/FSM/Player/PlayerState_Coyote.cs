@@ -18,6 +18,7 @@ public class PlayerState_Coyote : PlayerState
     public override void Logic(){
         if(InputMgr.Inst.IsJump) ToJump();
         else if(StateDuration > coyoteTime || !InputMgr.Inst.IsMove) ToFall();
+        else if(_data.ctrl.CanDash) ToDash();
     }
 
     public override void Physics(){

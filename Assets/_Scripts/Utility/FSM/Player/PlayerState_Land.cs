@@ -9,6 +9,7 @@ public class PlayerState_Land : PlayerState
         base.Enter();
 
         _data.ctrl.HasDoubleJump = true;
+        _data.ctrl.HasDash = true;
     }
 
     public override void Exit(){
@@ -19,6 +20,7 @@ public class PlayerState_Land : PlayerState
         if(InputMgr.Inst._buffer.IsJumpBuffer) ToJump();
         else if(InputMgr.Inst.IsMove) ToWalk();
         else if(!InputMgr.Inst.IsMove) ToIdle();
+        else if(_data.ctrl.CanDash) ToDash();
     }
 
     public override void Physics(){

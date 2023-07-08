@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: PlayerState_Dash
   m_EditorClassIdentifier: 
   _animName: Dash
+  dashSpeed: 20
+  dashDistance: 5
+  dashCD: 2
