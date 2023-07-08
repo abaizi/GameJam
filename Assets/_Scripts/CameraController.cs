@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform background, middle, foreground,player;
+    [SerializeField] private Transform background, foreground, player;
     private Vector3 distance;
     void Start()
     {
@@ -15,7 +15,6 @@ public class CameraController : MonoBehaviour
     {
         transform.position = player.position + distance;
         background.position = transform.position / 4;
-        middle.position = transform.position / 3;
         foreground.position = transform.position / 2;
     }
 }
