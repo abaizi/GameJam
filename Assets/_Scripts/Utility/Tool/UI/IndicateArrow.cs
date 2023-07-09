@@ -14,6 +14,7 @@ public class IndicateArrow : MonoBehaviour
     [SerializeField] private float minScaleSize;
     [SerializeField] private float maxScaleSize;
 
+
     private Vector3 dir;
 
     private void Update()

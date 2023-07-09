@@ -8,7 +8,7 @@ public class BounceGround : Ground
 
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
-        _ctrl.AddForce(Vector2.up * _bounce, ForceMode2D.Impulse);
+        //_ctrl.AddForce(Vector2.up * _bounce, ForceMode2D.Impulse);
     }
 
     protected override void OnPlayerStay(Collision2D other){

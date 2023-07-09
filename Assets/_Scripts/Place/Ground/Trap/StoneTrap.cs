@@ -5,15 +5,17 @@ using UnityEngine;
 public class StoneTrap : Ground
 {
     [SerializeField] private float _IdleDuration = 1;
+    private Animator anim;
 
 
     protected override void Awake(){
+        anim = GetComponent<Animator>();
         base.Awake();
     }
 
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
-        
+        anim.SetTrigger("Broken");
         Destroy(gameObject, _IdleDuration);
     }
 

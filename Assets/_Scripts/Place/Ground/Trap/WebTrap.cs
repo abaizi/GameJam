@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class WebTrap : Ground
 {
     [SerializeField] private float _jumpCount = 2;
 
     private float _curJumpCount = 0;
+    [SerializeField] private float delayTime;
 
+
+  
 
     protected override void OnPlayerEnter(Collision2D other){
         base.OnPlayerEnter(other);
-        
         StartCoroutine(nameof(CheckCoroutine));
     }
 
@@ -31,7 +34,10 @@ public class WebTrap : Ground
             if(InputMgr.Inst.IsJump){
                 if(++_curJumpCount >= _jumpCount){
                     _data.fsm.Switch(typeof(PlayerState_Jump));
+                    Destroy(gameObject,delayTime);
+                    GetComponent<BoxCollider2D>().enabled = false;
                     yield break;
+
                 }
             }
 
