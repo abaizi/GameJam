@@ -30,12 +30,12 @@ public class Fader : MonoBehaviour, IEventListener<FadeInEvent>, IEventListener<
     [Header("Interaction")]
     [SerializeField] private bool useBlockRaycasts = false;
 
-    [Header("Debug")]
-    [SerializeField] [InspectButton("FadeInSecond")] private bool FadeInSecondButton;
-    [SerializeField] [InspectButton("FadeOutSecond")] private bool FadeOutSecondButton;
-    [SerializeField] [InspectButton("DefaultFade")] private bool DefaultFadeButton;
-    [SerializeField] [InspectButton("ResetFader")] private bool ResetFaderButton;
-    [SerializeField] [InspectButton("StartFader")] private bool StartFaderButton;
+    // [Header("Debug")]
+    // [SerializeField] [InspectButton("FadeInSecond")] private bool FadeInSecondButton;
+    // [SerializeField] [InspectButton("FadeOutSecond")] private bool FadeOutSecondButton;
+    // [SerializeField] [InspectButton("DefaultFade")] private bool DefaultFadeButton;
+    // [SerializeField] [InspectButton("ResetFader")] private bool ResetFaderButton;
+    // [SerializeField] [InspectButton("StartFader")] private bool StartFaderButton;
 
 
     private CanvasGroup canvasGroup;

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Water : Ground
 {
+    [SerializeField] private AudioClip clip;
     [SerializeField] private float _sphereDrag = 5;
 
     private Animator _animator;
     private string path = "Prefabs/Effect";
+
 
     protected override void Awake(){
         base.Awake();
@@ -16,6 +18,8 @@ public class Water : Ground
 
     protected override void OnPlayerTriggerEnter(Collider2D other){
         base.OnPlayerTriggerEnter(other);
+        AudioMgr.Inst.PlaySFX(clip);
+
         _ctrl.IsWater = true;
         _data.fsm.Switch(typeof(PlayerState_IdleWater));
         

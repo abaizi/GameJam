@@ -39,12 +39,34 @@ public static class FadeEx
         image.color = new Color(image.color.r, image.color.g, image.color.b, targetAlpha);
     }
 
-    public static IEnumerator FadeInCoroutine(this Image canvasGroup, float duration){
-        yield return FadeCoroutine(canvasGroup, 1, duration);
+    public static IEnumerator FadeInCoroutine(this Image image, float duration){
+        yield return FadeCoroutine(image, 1, duration);
     }
 
-    public static IEnumerator FadeOutCoroutine(this Image canvasGroup, float duration){
-        yield return FadeCoroutine(canvasGroup, 0, duration);
+    public static IEnumerator FadeOutCoroutine(this Image image, float duration){
+        yield return FadeCoroutine(image, 0, duration);
+    }
+
+#endregion
+
+#region SpriteRenderer
+    public static IEnumerator FadeCoroutine(this SpriteRenderer sprite, float targetAlpha, float duration){
+        float timer = 0, initAlpha = sprite.color.a;
+        while(timer < duration){
+            Color color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, Mathf.SmoothStep(initAlpha, targetAlpha, timer / duration));
+            sprite.color = color;
+            yield return null;
+            timer += Time.unscaledDeltaTime;
+        }
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, targetAlpha);
+    }
+
+    public static IEnumerator FadeInCoroutine(this SpriteRenderer sprite, float duration){
+        yield return FadeCoroutine(sprite, 1, duration);
+    }
+
+    public static IEnumerator FadeOutCoroutine(this SpriteRenderer sprite, float duration){
+        yield return FadeCoroutine(sprite, 0, duration);
     }
 
 #endregion

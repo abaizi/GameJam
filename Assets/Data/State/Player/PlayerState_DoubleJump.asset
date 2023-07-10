@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerState_DoubleJump
   m_EditorClassIdentifier: 
   _animName: DoubleJump
+  clip: {fileID: 8300000, guid: 1cd6e5f5609eda7448533c1e03c7141f, type: 3}
   jumpForce: 10.3
   jumpTime: 0.1
   fallGravityMul: 3

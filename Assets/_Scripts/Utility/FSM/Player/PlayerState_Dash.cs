@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Player/Dash", fileName = "PlayerState_Dash")]
 public class PlayerState_Dash : PlayerState
 {
+    [SerializeField] private AudioClip clip;
     [SerializeField] private float dashSpeed = 20;
     [SerializeField] private float dashDistance = 5;
     [SerializeField] private float dashCD = 2;
@@ -13,6 +14,7 @@ public class PlayerState_Dash : PlayerState
 
     public override void Enter(){
         base.Enter();
+        AudioMgr.Inst.PlaySFX(clip);
         _data.ctrl.StartDashTimer(dashCD);
         _data.ctrl.HasDash = false;
         _data.ctrl.SetGravity(0);

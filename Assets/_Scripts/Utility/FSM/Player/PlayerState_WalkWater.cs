@@ -18,7 +18,7 @@ public class PlayerState_WalkWater : PlayerState
     }
 
     public override void Logic(){
-        if(!_data.ctrl.IsWater) ToIdle();
+        if(!_data.ctrl.IsWater) ToJump();
         else if(!InputMgr.Inst.IsMove) ToIdleWater();
         else if(InputMgr.Inst.IsJump) ToJumpWater();
     }

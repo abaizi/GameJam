@@ -14,6 +14,7 @@ public enum TrackMode{
 
 public class AudioMgr : PersistentSingleton<AudioMgr>, IEventListener<PlayAudioEvent>, IEventListener<SoundTrackEvent>, IEventListener<LoadStartEvent>
 {
+    [SerializeField] private AudioClip clip;
     [SerializeField] private AudioSetting audioSetting;
 
     private Dictionary<AudioSource, AudioData> playingAudioDict = new Dictionary<AudioSource, AudioData>();
@@ -45,6 +46,7 @@ public class AudioMgr : PersistentSingleton<AudioMgr>, IEventListener<PlayAudioE
         if(audioSetting.IsAutoLoad){
             audioSetting.LoadSoundSetting();
         }
+        PlayBGM(clip, true);
     }
 
 

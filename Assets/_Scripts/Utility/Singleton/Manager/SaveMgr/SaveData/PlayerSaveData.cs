@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerSaveData : SaveData
 {
-    public Vector3 position;
+    public Vector3 playerPos;
+    public Vector3 spherePos;
     public static string SaveFileName = "PlayerData";
     
 
-    public PlayerSaveData(Vector3 position){
-        this.position = position;
+    public PlayerSaveData(Vector3 position, Vector3 spherePos){
+        this.playerPos = position;
+        this.spherePos = spherePos;
     }
 }

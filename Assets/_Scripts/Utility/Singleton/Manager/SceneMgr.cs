@@ -27,6 +27,7 @@ public class SceneMgr : MonoBehaviour
     public static string LoadingSceneName = "LoadingScene";
     public static string StartSceneName = "StartScene";
     public static string PlaySceneName = "PlayScene";
+    public static string CreditsScene = "CreditsScene";
 
     private AsyncOperation asyncOperation;
     private WaitForSeconds waitForFadeIn;

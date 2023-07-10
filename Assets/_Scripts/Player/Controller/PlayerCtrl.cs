@@ -20,6 +20,8 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private float _waterSpeedYMul = 0.2f;
     [SerializeField] private float _waterFallSpeed = 1;
 
+    [SerializeField] private SpriteRenderer _effectSprite;
+    public SpriteRenderer EffectSprite => _effectSprite;
 
     private Rigidbody2D _rb;
     private Collider2D _collider;
@@ -60,14 +62,7 @@ public class PlayerCtrl : MonoBehaviour
         InputMgr.Inst.EnablePlayerInput();
 
         var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
-        transform.position = data.position;
-    }
-
-
-    [InspectButton("Test")]
-    public bool b;
-    private void Test(){
-        EventMgr.Test();
+        transform.position = data.playerPos;
     }
 
 

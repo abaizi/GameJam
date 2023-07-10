@@ -19,4 +19,9 @@ public struct FadeInEvent
         e.IsIgnoreTimescale = isIgnoreTimescale;
         EventMgr.Invoke<FadeInEvent>(e);
     }
+
+    public static IEnumerator InvokeCoroutine(float duration, TweenType tweenType, int id = 0, bool isIgnoreTimescale = true){
+        Invoke(duration, tweenType, id, isIgnoreTimescale);
+        yield return Timer.WaitForTime(duration);
+    }
 }

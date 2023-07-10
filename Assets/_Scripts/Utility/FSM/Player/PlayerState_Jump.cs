@@ -5,13 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Player/Jump", fileName = "PlayerState_Jump")]
 public class PlayerState_Jump : PlayerState
 {
+    [SerializeField] private AudioClip clip;
     [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float jumpTime = 0.1f;
     [SerializeField] private float fallGravityMul = 3f;
 
     public override void Enter(){
         base.Enter();
-
+        AudioMgr.Inst.PlaySFX(clip);
         _data.ctrl.Jump(jumpForce);
         InputMgr.Inst._buffer.IsJumpBuffer = false;
     }

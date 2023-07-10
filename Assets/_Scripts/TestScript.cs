@@ -5,48 +5,9 @@ using UnityEngine.InputSystem;
 
 public class TestScript : MonoBehaviour
 {
-    [InspectButton("PlayBGM")]
-    public bool b1;
-
-    [InspectButton("MuteBGM")]
-    public bool b2;
-
-    [InspectButton("UnmuteBGM")]
-    public bool b3;
-
-    [InspectButton("SetBGMVolume")]
-    public bool b4;
-
-    [InspectButton("PlayAudio")]
-    public bool b5;
-
-    [InspectButton("PlayBGMPersistent")]
-    public bool b11;
-
-    [InspectButton("PauseAudio")]
-    public bool b6;
-
-    [InspectButton("StopAudio")]
-    public bool b7;
-
-    [InspectButton("FreeAudio")]
-    public bool b8;
-
-    [InspectButton("Save")]
-    public bool b9;
-
-    [InspectButton("Load")]
-    public bool b10;
-
-    [InspectButton("LoadScene")]
-    public bool b12;
-
-    [InspectButton("LoadPlayer")]
-    public bool b13;
-
     public void LoadPlayer(){
         var data = SaveMgr.Load<SaveJson, PlayerSaveData>(PlayerSaveData.SaveFileName);
-        playerPt.position = data.position;
+        playerPt.position = data.playerPos;
     } 
 
 

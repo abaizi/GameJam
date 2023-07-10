@@ -37,12 +37,12 @@ public class FSMBase : MonoBehaviour, IState
         _curState.Physics();
     }
 
-    private void OnGUI(){
-        GUIStyle style = new GUIStyle();
-        style.fontStyle = FontStyle.Bold;
-        style.fontSize = 30; 
-        GUI.Label(new Rect(20, 20, 200, 200), $"当前状态: {_curState.GetType()}", style);
-    }
+    // private void OnGUI(){
+    //     GUIStyle style = new GUIStyle();
+    //     style.fontStyle = FontStyle.Bold;
+    //     style.fontSize = 30; 
+    //     GUI.Label(new Rect(20, 20, 200, 200), $"当前状态: {_curState.GetType()}", style);
+    // }
 
 #endregion
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerState_Dash
   m_EditorClassIdentifier: 
   _animName: Dash
+  clip: {fileID: 8300000, guid: dab42ae573267bd4bbf350461312761f, type: 3}
   dashSpeed: 20
   dashDistance: 5
   dashCD: 2

@@ -18,6 +18,7 @@ public class CreditsButton : ButtonBase, IPointerEnterHandler, IPointerExitHandl
 
     public override void OnClick(){
         base.OnClick();
+        SceneMgr.LoadScene(SceneMgr.CreditsScene);
     }
 
     public void OnPointerEnter(PointerEventData eventData){
